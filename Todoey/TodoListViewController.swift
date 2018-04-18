@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    let itemArray = ["Buy motorcycle", "Become an iOS Dev", "Born a son"]
+    var itemArray = ["Buy motorcycle", "Become an iOS Dev", "Born a son"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,5 +48,56 @@ class TodoListViewController: UITableViewController {
         
     }
     
+    //MARK - Add new items
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var addedString = UITextField()
+        
+        let alert = UIAlertController(title: "Add new item", message: nil, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add", style: .default) { (action) in
+            
+            if let text = addedString.text {
+                
+                self.itemArray.append(text)
+            }
+            
+            self.tableView.reloadData()
+            
+        }
+        
+        alert.addTextField { (alertTextField) in
+            
+            alertTextField.placeholder = "Create new item"
+            
+            addedString = alertTextField
+            
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
