@@ -11,9 +11,17 @@ import UIKit
 class TodoListViewController: UITableViewController {
     
     var itemArray = ["Buy motorcycle", "Become an iOS Dev", "Born a son"]
+    
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let items = defaults.array(forKey: "ToDoListArray") as? [String] {
+            
+            itemArray = items
+            
+        }
         
     }
 
@@ -61,6 +69,9 @@ class TodoListViewController: UITableViewController {
             if let text = addedString.text {
                 
                 self.itemArray.append(text)
+                
+                self.defaults.set(self.itemArray, forKey: "ToDoListArray")
+                
             }
             
             self.tableView.reloadData()
